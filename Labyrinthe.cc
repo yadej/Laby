@@ -3,8 +3,8 @@
 #include "Gardien.h"
 
 Sound*	Chasseur::_hunter_fire;	// bruit de l'arme du chasseur.
-Sound*	Chasseur::_hunter_hit;	// cri du chasseur touché.
-Sound*	Chasseur::_wall_hit;	// on a tapé un mur.
+Sound*	Chasseur::_hunter_hit;	// cri du chasseur touchï¿½.
+Sound*	Chasseur::_wall_hit;	// on a tapï¿½ un mur.
 
 /*
  *	Pour que l'interface puisse appeler le constucteur de
@@ -17,7 +17,7 @@ Environnement* Environnement::init (char* filename)
 }
 
 /*
- *	EXEMPLE de labyrinthe à taille fixe.
+ *	EXEMPLE de labyrinthe ï¿½ taille fixe.
  */
 
 #define	LAB_WIDTH	80
@@ -63,7 +63,7 @@ Labyrinthe::Labyrinthe (char* filename) : _width(LAB_WIDTH), _height(LAB_HEIGHT)
 	_picts [0]._x2 = 6; _picts [0]._y2 = 0; 
 	_picts [0]._ntex = 0; 
 
-	// la deuxième à une texture différente.
+	// la deuxieme a une texture differente.
 	_picts [1]._x1 = 8; _picts [1]._y1 = 0;
 	_picts [1]._x2 = 10; _picts [1]._y2 = 0; 
 
@@ -75,7 +75,7 @@ Labyrinthe::Labyrinthe (char* filename) : _width(LAB_WIDTH), _height(LAB_HEIGHT)
 	_boxes [0]._x = 70; _boxes [0]._y = 12; _boxes [0]._ntex = 0; 
 	_boxes [1]._x = 10; _boxes [1]._y = 5; _boxes [1]._ntex = 0; 
 
-	// mettre une autre texture à la troisième caisse.
+	// mettre une autre texture a la troisieme caisse.
 	sprintf (tmp, "%s/%s", texture_dir, "boite.jpg");
 	_boxes [2]._x = 65; _boxes [2]._y = 22; _boxes [2]._ntex = wall_texture (tmp);
 
@@ -89,7 +89,7 @@ Labyrinthe::Labyrinthe (char* filename) : _width(LAB_WIDTH), _height(LAB_HEIGHT)
 	_marks [1]._ntex = wall_texture (tmp);
 
 
-	// 6. créer la matrice représentant le sol du labyrinthe.
+	// 6. creer la matrice representant le sol du labyrinthe.
 
 	// 6.1 allouer un tableau de pointeurs de lignes.
 	_data = new char* [width ()];
@@ -111,10 +111,10 @@ Labyrinthe::Labyrinthe (char* filename) : _width(LAB_WIDTH), _height(LAB_HEIGHT)
 	_data [_boxes [1]._x][_boxes [1]._y] = 1;
 	_data [_boxes [2]._x][_boxes [2]._y] = 1;
 
-	// 8. le trésor.
+	// 8. le tresor.
 	_treasor._x = 10;
 	_treasor._y = 10;
-	// 8.1 indiquer l'emplacement du trésor au sol.
+	// 8.1 indiquer l'emplacement du tresor au sol.
 	_data [_treasor._x][_treasor._y] = 1;
 
 	// 9. allouer le chasseur et les 4 gardiens.
