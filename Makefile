@@ -72,10 +72,10 @@ endif
 #	Début du Makefile propre au projet
 #
 
-SRC	=	Labyrinthe.cc Chasseur.cc
+SRC	=	Labyrinthe.cc Chasseur.cc Gardien.cc FireBall.cc
 H	=	Labyrinthe.h Chasseur.h FireBall.h Sound.h Environnement.h \
 		Gardien.h Mover.h
-O	=	Labyrinthe.o Chasseur.o
+O	=	Labyrinthe.o Chasseur.o Gardien.o 
 
 ifeq '$(OS)' "Darwin"
 OPENGL_O = OpenGL-macosx.o
@@ -103,3 +103,5 @@ clean:
 
 Labyrinthe.o:	Labyrinthe.h Environnement.h Chasseur.h Mover.h Gardien.h
 Chasseur.o:		Chasseur.cc Chasseur.h Mover.h Sound.h
+Gardien.o: Gardien.cc Gardien.h Mover.h Labyrinthe.h
+FireBall.o: FireBall.cc FireBall.cc Mover.h

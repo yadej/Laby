@@ -1,4 +1,6 @@
 #include "Chasseur.h"
+#include "Environnement.h"
+#include <cmath>
 
 /*
  *	Tente un deplacement.
@@ -6,8 +8,8 @@
 
 bool Chasseur::move_aux (double dx, double dy)
 {
-	if (EMPTY == _l -> data ((int)((_x + dx) / Environnement::scale),
-							 (int)((_y + dy) / Environnement::scale)))
+	int tile =  _l -> data ((int)(_x + dx) / Environnement::scale,(int)((_y + dy) / Environnement::scale));
+	if (tile != 1)
 	{
 		_x += dx;
 		_y += dy;
@@ -40,6 +42,20 @@ bool Chasseur::process_fireball (float dx, float dy)
 	float	y = (_y - _fb -> get_y ()) / Environnement::scale;
 	float	dist2 = x*x + y*y;
 	// on bouge que dans le vide!
+	for(int indexGuards=1; indexGuards < _l->_nguards; ++indexGuards)
+	{
+		float distance = std::sqrt(
+			std::pow(_fb->get_x()-_l->_guards[indexGuards]->_x,2) +
+			std::pow(_fb->get_y()-_l->_guards[indexGuards]->_y,2)
+		);
+		if(distance <= 20.0)
+		{
+			_l->_guards[indexGuards]->tomber();
+			message("Touche %d", indexGuards);
+			return false;
+		}
+	}
+
 	if (EMPTY == _l -> data ((int)((_fb -> get_x () + dx) / Environnement::scale),
 							 (int)((_fb -> get_y () + dy) / Environnement::scale)))
 	{

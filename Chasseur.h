@@ -19,6 +19,10 @@ public:
 
 	// constructeur.
 	Chasseur (Labyrinthe* l);
+	~Chasseur()
+	{
+		delete _fb;
+	};
 	// ne bouger que dans une case vide (on 'glisse' le long des obstacles)
 	bool move (double dx, double dy) {
 		return move_aux (dx, dy) || move_aux (dx, 0.0) || move_aux (0.0, dy);
