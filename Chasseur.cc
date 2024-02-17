@@ -4,8 +4,12 @@
 #include "Gardien.h"
 #include <cmath>
 
+// player health at the start of the game
 #define MAX_HP_CHASSEUR 100
-#define COOLDOWN_SHOT_CHASSEUR 1000
+// shooting cooldown
+#define COOLDOWN_SHOT_CHASSEUR 250
+// Miss angle when hp is low
+#define DAMAGE_SHOT_ANGLE 10
 /*
  *	Tente un deplacement.
  */
@@ -13,10 +17,12 @@
 bool Chasseur::move_aux (double dx, double dy)
 {
 	char tile =  _l -> data ((int)(_x + dx) / Environnement::scale,(int)((_y + dy) / Environnement::scale));
+	// Look for treasure if true finish the game
 	if( tile == 'T')
 	{
 		partie_terminee(true);
 	}
+
 	if (tile == EMPTY)
 	{
 		_x += dx;
@@ -28,6 +34,9 @@ bool Chasseur::move_aux (double dx, double dy)
 
 /*
  *	Constructeur.
+ *	x: x position of the player
+ *	y: y position of the player
+ *	l: labyrinth where the player is
  */
 
 Chasseur::Chasseur (int x, int y,Labyrinthe* l) : Creature (x, y, MAX_HP_CHASSEUR, COOLDOWN_SHOT_CHASSEUR, l, 0)
@@ -40,7 +49,10 @@ Chasseur::Chasseur (int x, int y,Labyrinthe* l) : Creature (x, y, MAX_HP_CHASSEU
 }
 
 /*
- *	Fait bouger la boule de feu (ceci est une exemple, à vous de traiter les collisions spécifiques...)
+ *	Move the fireball
+ *	dx: direction x of the fireball 
+ *	dy: direction y of the fireball
+ *
  */
 
 bool Chasseur::process_fireball (float dx, float dy)
@@ -64,11 +76,11 @@ bool Chasseur::process_fireball (float dx, float dy)
 			//  Dynamic cast for getting gardian method
 			Gardien* gardien = dynamic_cast<Gardien*>(_l->_guards[indexGuards]);
 			// Look first if it is alive
-			if(!gardien->isAlive())continue;
+			if(!gardien->is_alive())continue;
 			// Damage the gardian
-			gardien->getHit(20);
+			gardien->get_hit(20);
 			// Action on the hit
-			if(gardien->isAlive())gardien->tomber();
+			if(gardien->is_alive())gardien->tomber();
 			else gardien->rester_au_sol();
 			message("Touche %d", indexGuards);
 			return false;
@@ -98,11 +110,14 @@ void Chasseur::fire (int angle_vertical)
 	if(!_timer.cooldown_finished())return;
 	_hunter_fire -> play ();
 
+	// Compute the degree of shooting depending on the health
+	int varying_degree =  (std::rand() % DAMAGE_SHOT_ANGLE - 2 * DAMAGE_SHOT_ANGLE) \
+	* (1. - (float)_health_point / MAX_HP_CHASSEUR);
 	// Compute the angle where we will shoot our bullet
-	int shotAngle = _angle;
+	int shot_angle = _angle;
 
 	_fb -> init (/* position initiale de la boule */ _x, _y, 10.,
-				 /* angles de visée */ angle_vertical, shotAngle);
+				 /* angles de visée */ angle_vertical, shot_angle);
 }
 
 /*

@@ -132,21 +132,7 @@ Labyrinthe::Labyrinthe(char* filename)
 	}
 	file.close();
 	// See _data if it works properly
-	for(std::size_t i =0; i < (std::size_t)_height; ++i)
-	{
-		for(std::size_t j = 0; j < (std::size_t) _width; ++j)
-		{ 
-			if(_data[j][i] == EMPTY)
-			{
-				std::cout << " ";
-			}
-			else 
-			{
-				std::cout << _data[j][i];
-			}
-		}
-		std::cout << std::endl;
-	}
+	printMaze();
 	
 	std::cout<< "extract Walls\n";
 	// Make the wall on the maze
@@ -198,7 +184,28 @@ Labyrinthe::Labyrinthe(char* filename)
 	_marks = NULL;
 	std::cout << "Finish init maze\n";
 }
-
+/*
+ * Destructor of the class
+ **/
+Labyrinthe::~Labyrinthe()
+{
+	// Delete the data
+	for(int i=0;i<_width;++i)
+	{
+		delete[] _data[i]; 
+	}
+	delete [] _data;
+	// Delete the walls
+	delete[] _walls;
+	// Delete the pictures
+	delete[] _picts;
+	// Delete the boxes
+	delete[] _boxes;
+	// Delete the marks
+	delete[] _marks;
+	// Delete the guards and their associated Mover objects	
+	delete[] _guards;
+}
 /*
  * Extract the Walls for the maze
  **/
@@ -292,7 +299,11 @@ void Labyrinthe::extractTresor()
 		}
 	}
 }
-
+/* Make the wall to put the pict
+ * x: x position of the pict
+ * y: y position of the pict
+ * tmp: texture of the pict
+ **/
 Wall Labyrinthe::makePict(int x, int y, char* tmp)
 {
 	Wall wall;
@@ -340,16 +351,4 @@ void Labyrinthe::extractPict()
 
 
 }
-
-// For the mob if they move we need to updates the maze
-void Labyrinthe::changePosition(int current_x, int current_y, int new_x, int new_y)
-{
-	if(current_x != new_x && current_y != new_y)
-	{
-		_data[new_x][new_y] = _data[current_x][current_y];
-		_data[current_x][current_y] = EMPTY;
-	}
-}
-
-
 

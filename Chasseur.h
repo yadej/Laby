@@ -8,6 +8,11 @@
 
 class Labyrinthe;
 
+/**
+ *  Chasseur is used by the main class for the
+ *  player to use.
+ **/
+
 class Chasseur : public Creature {
 private:
 	// accepte ou non un deplacement.
@@ -17,7 +22,7 @@ public:
 	static Sound*	_hunter_fire;	// bruit de l'arme du chasseur.
 	static Sound*	_hunter_hit;	// cri du chasseur touché.
 	static Sound*	_wall_hit;		// on a tapé un mur.
-	// constructeur.
+	// Constructor.
 	Chasseur (int x, int y,Labyrinthe* l);
 	// ne bouger que dans une case vide (on 'glisse' le long des obstacles)
 	bool move (double dx, double dy) override {
@@ -27,7 +32,8 @@ public:
 	void update (void) override {};
 	// fait bouger la boule de feu (ceci est une exemple, à vous de traiter les collisions spécifiques...)
 	bool process_fireball (float dx, float dy) override;
-	// tire sur un ennemi.
+	// Shoot a fireball
+	// angle_vertical for the z angle of the shot
 	void fire (int angle_vertical) override;
 	// clic droit.
 	void right_click (bool shift, bool control) override;

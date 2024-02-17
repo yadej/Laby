@@ -18,13 +18,13 @@ class Creature: public Mover
 
 	public:
 	// Put hp for movable entity
-	int _healthPoint;
+	int _health_point;
 	// Cooldown on shooting
 	Timer _timer;
 	// Constructor
 	Creature(int x,int y, int hp, int cooldown,Labyrinthe* l, const char* model): Mover(x,y, l, model)
 	{
-		_healthPoint = hp;
+		_health_point = hp;
 		_timer = Timer(cooldown);
 	}
 	// delete
@@ -35,11 +35,11 @@ class Creature: public Mover
 	}
 
 	// Give the number of hp left
-	int getHealthPoint(){return _healthPoint;}
+	int get_health_point(){return _health_point;}
 	// Look if the creature is alive(at least 0 hp) or not
-	bool isAlive(){return _healthPoint > 0;}
+	bool is_alive(){return _health_point > 0;}
 	// Creature get damage
-	void getHit(int damage){_healthPoint -= damage;}
+	void get_hit(int damage){_health_point -= damage;}
 };
 
 #endif

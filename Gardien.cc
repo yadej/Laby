@@ -6,10 +6,17 @@
 #include "Mover.h"
 #include <cmath>
 #include <cstdlib>
+
+// Hp of the gardian
 #define MAX_HP_GARDIEN 80
+// Cooldown of the shot of the gardian
 #define COOLDOWN_SHOT_GARDIAN 3000
 /*
  * Constructor
+ * x: x position of the guard
+ * y: y position of the guard
+ * l: the labyrinth where the guard is
+* modele: texture of the guard
  **/
 
 Gardien::Gardien (int x, int y, Labyrinthe* l, const char* modele) : Creature(x, y, MAX_HP_GARDIEN,COOLDOWN_SHOT_GARDIAN , l, modele)
@@ -20,7 +27,7 @@ Gardien::Gardien (int x, int y, Labyrinthe* l, const char* modele) : Creature(x,
 // Update on the gardian
 void Gardien::update (void) 
 {
-	if(!isAlive())return;
+	if(!is_alive())return;
 	// Put the state of the gardian
 	detectChasseur();
 	if(_state == PATROUILLE)
@@ -83,8 +90,8 @@ bool Gardien::process_fireball (float dx, float dy) {
 	if(distance <= 10.0)
 	{
 		message("Touche Player");
-		chasseur->getHit(5);
-		if(!chasseur->isAlive())partie_terminee(false);
+		chasseur->get_hit(5);
+		if(!chasseur->is_alive())partie_terminee(false);
 		return false;
 	}
 
@@ -97,8 +104,12 @@ bool Gardien::process_fireball (float dx, float dy) {
 	return false;
 }
 
+/**
+ *  Look if the Chasseur can be seen by the guards
+ **/
 void Gardien::detectChasseur()
 {
+	// Position of the Chasseur
 	double x = _l->_guards[0]->_x;
 	double y = _l->_guards[0]->_y;
 	// Look first if the Chaser is in range
@@ -107,13 +118,13 @@ void Gardien::detectChasseur()
 	for(int i=0; i<distance_by_case; ++i)
 	{
 		// Put the current position to search
-		int posX = (_x + (i * (x - _x) / distance_by_case)) / Environnement::scale;
-		int posY = (_y + (i * (y - _y) / distance_by_case)) / Environnement::scale;
+		int pos_X = (_x + (i * (x - _x) / distance_by_case)) / Environnement::scale;
+		int pos_Y = (_y + (i * (y - _y) / distance_by_case)) / Environnement::scale;
         
 		// Ensure the calculated position is within the bounds of _data
-		if (posX >= 0 && posY >= 0 && posX < _l->width() && posY < _l->height())
+		if (pos_X >= 0 && pos_Y >= 0 && pos_X < _l->width() && pos_Y < _l->height())
 		{
-			if (_l->data(posX, posY) != EMPTY)
+			if (_l->data(pos_X, pos_Y) != EMPTY)
 			{
 				_state = PATROUILLE;
 				return;
@@ -131,11 +142,11 @@ void Gardien::angleGardien()
 	double y = _l->_guards[0]->_y - _y;
 	
 	//Calculate its angle in radian
-	double angleRadians = -atan2(x, y );
+	double angle_radians = -atan2(x, y );
 	// Then convert it to degree
-	int angleDegree = static_cast<int>(angleRadians * (180.0 / M_PI) );
+	int angle_degree = static_cast<int>(angle_radians * (180.0 / M_PI) );
 	// when the angleDegree is negative put in positive
-	if(angleDegree < 0)angleDegree += 360;
+	if(angle_degree < 0)angle_degree += 360;
 
-	_angle = angleDegree;
+	_angle = angle_degree;
 }

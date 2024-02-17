@@ -19,45 +19,28 @@ private:
 
 public:
 	Labyrinthe (char*);
-	~Labyrinthe()
-	{
-		// Delete the data
-		for(int i=0;i<_width;++i)
-		{
-			delete[] _data[i]; 
-		}
-		delete [] _data;
-		// Delete the walls
-		delete[] _walls;
 
-		// Delete the pictures
-		delete[] _picts;
-
-		// Delete the boxes
-		delete[] _boxes;
-
-		// Delete the marks
-		delete[] _marks;
-
-		// Delete the guards and their associated Mover objects
-		
-		delete[] _guards;
-	};
+	~Labyrinthe();
+	
 	int width () override { return _width;}	// retourne la largeur du labyrinthe.
 	int height () override { return _height;}	// retourne la longueur du labyrinthe.
 	char data (int i, int j) override
 	{
 		return _data [i][j];
 	}	// retourne la case (i, j)
-	void changePosition(int current_x, int current_y, int new_x, int new_y);
 	// print the maze
 	void printMaze()
 	{
-		for(int i=0; i<_width;++i)
+		for(int i=0; i<_height;++i)
 		{
-			for(int j=0; j<_height;++j)
+			for(int j=0; j<_width;++j)
 			{
-				std::cout << _data[i][j];
+				if(_data[j][i] == EMPTY)
+				{
+					std::cout << " ";
+					continue;
+				}
+				std::cout << _data[j][i];
 			}
 			std::cout << std::endl;
 		}

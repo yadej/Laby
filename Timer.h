@@ -10,20 +10,24 @@
 #include <chrono>
 class Timer
 {
-	std::chrono::steady_clock::time_point _lastShotTime;
-	std::chrono::milliseconds cooldownDuration; 
+	// Variable to put the time the action was last done
+	std::chrono::steady_clock::time_point _last_shot_time;
+	// Cooldown of the action
+	std::chrono::milliseconds _cooldown_duration; 
 	public:
 	/* Constructor */
 	Timer()
 	{
-		_lastShotTime = std::chrono::steady_clock::now();
-		cooldownDuration = std::chrono::milliseconds(1000); 
+		_last_shot_time = std::chrono::steady_clock::now();
+		_cooldown_duration = std::chrono::milliseconds(1000); 
 	}
-
+	/* Constructor
+	*  cooldown: cooldown of the action
+	**/
 	Timer(int cooldown)
 	{
-		_lastShotTime = std::chrono::steady_clock::now();
-		cooldownDuration = std::chrono::milliseconds(cooldown); 
+		_last_shot_time = std::chrono::steady_clock::now();
+		_cooldown_duration = std::chrono::milliseconds(cooldown); 
 	}
 
 	/* Look at the current time to see if the creature can do 
@@ -32,8 +36,8 @@ class Timer
 	bool cooldown_finished()
 	{
 		auto currentTime = std::chrono::steady_clock::now();
-		if (currentTime - _lastShotTime >= cooldownDuration) {
-			_lastShotTime = currentTime; // Update the last shot time
+		if (currentTime - _last_shot_time >= _cooldown_duration) {
+			_last_shot_time = currentTime; // Update the last shot time
 			return true;
 		}
 		return false;
