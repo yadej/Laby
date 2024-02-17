@@ -3,6 +3,7 @@
 
 #include "Mover.h"
 #include "Creature.h"
+#include "Sound.h"
 #include <chrono>
 
 class Labyrinthe;
@@ -25,6 +26,11 @@ private:
 	void angleGardien();
 	
 public:
+
+	// Sound
+	static Sound* _guard_die;
+	static Sound* _guard_fire;
+	static Sound* _guard_hit;
 	// Constructor
 	Gardien (int x, int y,Labyrinthe* l, const char* modele); 
 

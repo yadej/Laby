@@ -102,4 +102,4 @@ clean:
 
 Labyrinthe.o: Labyrinthe.cc Labyrinthe.h Environnement.h Chasseur.h Mover.h  Gardien.h Creature.h
 Chasseur.o: Chasseur.cc Chasseur.h Mover.h Creature.h Sound.h Timer.h
-Gardien.o: Gardien.cc Gardien.h Mover.h Creature.h Labyrinthe.h Timer.h
+Gardien.o: Gardien.cc Gardien.h Mover.h Creature.h Labyrinthe.h Sound.h Timer.h

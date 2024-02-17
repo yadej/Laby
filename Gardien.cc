@@ -4,6 +4,7 @@
 #include "Environnement.h"
 #include "Labyrinthe.h"
 #include "Mover.h"
+#include "Sound.h"
 #include <cmath>
 #include <cstdlib>
 
@@ -11,6 +12,9 @@
 #define MAX_HP_GARDIEN 80
 // Cooldown of the shot of the gardian
 #define COOLDOWN_SHOT_GARDIAN 3000
+// The varying degree where the gardian can shoot
+// when his hp are down
+#define ANGLE_SHOT_GARDIAN 25
 /*
  * Constructor
  * x: x position of the guard
@@ -22,6 +26,10 @@
 Gardien::Gardien (int x, int y, Labyrinthe* l, const char* modele) : Creature(x, y, MAX_HP_GARDIEN,COOLDOWN_SHOT_GARDIAN , l, modele)
 {
 	_state = PATROUILLE;
+	_guard_die = new Sound("sons/guard_die.wav");
+	_guard_hit = new Sound("sons/guard_hit.wav");
+	_guard_fire = new Sound("sons/guard_fire.wav");
+
 }
 
 // Update on the gardian
@@ -74,8 +82,12 @@ bool Gardien::move (double dx, double dy)
  * Shot fire ball
  **/
 void Gardien::fire (int angle_vertical) {
+	_guard_fire->play();
 	// Shot need to inverse to shot properly
-	int shotAngle = (-_angle - 1)   % 360;
+	int varying_degree =  (std::rand() % (2 * ANGLE_SHOT_GARDIAN) -  ANGLE_SHOT_GARDIAN) \
+	* (1. - (float)_health_point / MAX_HP_GARDIEN);
+
+	int shotAngle = (-_angle - 1 + varying_degree)   % 360;
 	_fb -> init (/* position initiale de la boule */ _x, _y, 10.,
 				 /* angles de visée */ angle_vertical, shotAngle);
 }	
@@ -87,10 +99,11 @@ bool Gardien::process_fireball (float dx, float dy) {
 		std::pow(_fb->get_x()- chasseur->_x,2) +
 		std::pow(_fb->get_y()- chasseur->_y,2)
 	);
-	if(distance <= 10.0)
+	if(distance <= 5.0)
 	{
-		message("Touche Player");
 		chasseur->get_hit(5);
+		message("Player Hit:  %d/%d", chasseur->_health_point,100 );
+		chasseur->_hunter_hit->play();
 		if(!chasseur->is_alive())partie_terminee(false);
 		return false;
 	}
@@ -106,6 +119,7 @@ bool Gardien::process_fireball (float dx, float dy) {
 
 /**
  *  Look if the Chasseur can be seen by the guards
+ *  and update the state of the guard accordingly
  **/
 void Gardien::detectChasseur()
 {
@@ -135,6 +149,9 @@ void Gardien::detectChasseur()
 	_state = ATTAQUE;
 }
 
+/*  
+ *   Put the gardian angle towards the player
+ **/
 void Gardien::angleGardien()
 {
 	// Calculate the distance between the two

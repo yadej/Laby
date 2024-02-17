@@ -3,6 +3,7 @@
 #include "Environnement.h"
 #include "Gardien.h"
 #include "Mover.h"
+#include "Sound.h"
 #include <algorithm>
 #include <cstddef>
 #include <cstdio>
@@ -18,6 +19,9 @@
 Sound*	Chasseur::_hunter_fire;	// bruit de l'arme du chasseur.
 Sound*	Chasseur::_hunter_hit;	// cri du chasseur touch�.
 Sound*	Chasseur::_wall_hit;	// on a tap� un mur.
+Sound*  Gardien::_guard_die;    // sound guard die
+Sound*  Gardien::_guard_hit;    // sound hit of the guard
+Sound*  Gardien::_guard_fire;   // sound fire of the guard
 /*
  *	Pour que l'interface puisse appeler le constucteur de
  *	la classe Labyrinthe sans en avoir les sources...
@@ -211,7 +215,7 @@ Labyrinthe::~Labyrinthe()
  **/
 void Labyrinthe::extractWalls()
 {
-	std::vector<Wall> allWalls;
+	std::vector<Wall> all_walls;
 	// Declare the texture for the wall
 	char tmp[128];
 	sprintf (tmp, "%s/%s", texture_dir, "brickwall.jpg");
@@ -236,7 +240,7 @@ void Labyrinthe::extractWalls()
 					wall._x2 = endWall;
 					wall._y2 = i;
 					wall._ntex = wall_texture(tmp);
-					allWalls.push_back(wall);
+					all_walls.push_back(wall);
 				}
 				if(i+1 < _height && _data[j][i+1] != EMPTY && _data[j][i + 1] != '-' )
 				{
@@ -250,15 +254,15 @@ void Labyrinthe::extractWalls()
 					wall._y2 = endWall;
 					wall._y1 = i;
 					wall._ntex = wall_texture(tmp);
-					allWalls.push_back(wall);
+					all_walls.push_back(wall);
 				}
 				
 			}
 		}
 	}
-	_nwall = allWalls.size();
+	_nwall = all_walls.size();
 	_walls = new Wall[_nwall];
-	std::copy(allWalls.begin(),allWalls.end(), _walls);
+	std::copy(all_walls.begin(),all_walls.end(), _walls);
 }
 /**
  *  put the box in the labyrinth
@@ -337,7 +341,6 @@ void Labyrinthe::extractPict()
 	{
 		for (int j=0; j < _width;++j) 
 		{
-			Wall wall;
 			// Look for the right picture
 			for (const auto& pair : texture_affiche) {
 				if(pair.first == _data[j][i])

@@ -2,6 +2,7 @@
 #include "Creature.h"
 #include "Environnement.h"
 #include "Gardien.h"
+#include <algorithm>
 #include <cmath>
 
 // player health at the start of the game
@@ -79,9 +80,14 @@ bool Chasseur::process_fireball (float dx, float dy)
 			if(!gardien->is_alive())continue;
 			// Damage the gardian
 			gardien->get_hit(20);
+			gardien->_guard_hit->play();
 			// Action on the hit
 			if(gardien->is_alive())gardien->tomber();
-			else gardien->rester_au_sol();
+			else 
+			{
+				gardien->rester_au_sol();
+				gardien->_guard_die->play();
+			}
 			message("Touche %d", indexGuards);
 			return false;
 		}
@@ -111,11 +117,11 @@ void Chasseur::fire (int angle_vertical)
 	_hunter_fire -> play ();
 
 	// Compute the degree of shooting depending on the health
-	int varying_degree =  (std::rand() % DAMAGE_SHOT_ANGLE - 2 * DAMAGE_SHOT_ANGLE) \
+	int varying_degree =  (std::rand() %(2 * DAMAGE_SHOT_ANGLE) - DAMAGE_SHOT_ANGLE) \
 	* (1. - (float)_health_point / MAX_HP_CHASSEUR);
 	// Compute the angle where we will shoot our bullet
-	int shot_angle = _angle;
-
+	int shot_angle = _angle + varying_degree;
+	std::cout << varying_degree << " " << shot_angle << "\n";
 	_fb -> init (/* position initiale de la boule */ _x, _y, 10.,
 				 /* angles de visée */ angle_vertical, shot_angle);
 }
