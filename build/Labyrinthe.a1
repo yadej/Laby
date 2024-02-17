@@ -1,0 +1,181 @@
+<?xml version="1.0"?>
+<analyzerinfo checksum="952347143">
+        <error id="noCopyConstructor" severity="warning" msg="Class &apos;Labyrinthe&apos; does not have a copy constructor which is recommended since it has dynamic memory/resource allocation(s)." verbose="Class &apos;Labyrinthe&apos; does not have a copy constructor which is recommended since it has dynamic memory/resource allocation(s)." cwe="398" file0="Labyrinthe.cc">
+            <location file="Labyrinthe.cc" line="88" column="2"/>
+            <symbol>Labyrinthe</symbol>
+        </error>
+        <error id="noOperatorEq" severity="warning" msg="Class &apos;Labyrinthe&apos; does not have a operator= which is recommended since it has dynamic memory/resource allocation(s)." verbose="Class &apos;Labyrinthe&apos; does not have a operator= which is recommended since it has dynamic memory/resource allocation(s)." cwe="398" file0="Labyrinthe.cc">
+            <location file="Labyrinthe.cc" line="88" column="2"/>
+            <symbol>Labyrinthe</symbol>
+        </error>
+        <error id="noExplicitConstructor" severity="style" msg="Class &apos;Labyrinthe&apos; has a constructor with 1 argument that is not explicit." verbose="Class &apos;Labyrinthe&apos; has a constructor with 1 argument that is not explicit. Such constructors should in general be explicit for type safety reasons. Using the explicit keyword in the constructor means some mistakes when using the class can be avoided." cwe="398" file0="Labyrinthe.cc">
+            <location file="Labyrinthe.h" line="20" column="2"/>
+            <symbol>Labyrinthe</symbol>
+        </error>
+        <error id="noExplicitConstructor" severity="style" msg="Class &apos;Sound&apos; has a constructor with 1 argument that is not explicit." verbose="Class &apos;Sound&apos; has a constructor with 1 argument that is not explicit. Such constructors should in general be explicit for type safety reasons. Using the explicit keyword in the constructor means some mistakes when using the class can be avoided." cwe="398" file0="Labyrinthe.cc">
+            <location file="Sound.h" line="57" column="2"/>
+            <symbol>Sound</symbol>
+        </error>
+        <error id="cstyleCast" severity="style" msg="C-style pointer casting" verbose="C-style pointer casting detected. C++ offers four different kinds of casts as replacements: static_cast, const_cast, dynamic_cast and reinterpret_cast. A C-style cast could evaluate to any of those automatically, thus it is considered safer if the programmer explicitly states which kind of cast is expected. See also: https://www.securecoding.cert.org/confluence/display/cplusplus/EXP05-CPP.+Do+not+use+C-style+casts." cwe="398" file0="Labyrinthe.cc">
+            <location file="Mover.h" line="20" column="7"/>
+        </error>
+  <FileInfo check="ctu">
+<function-call call-id="Environnement.h:66:6" call-funcname="wall_texture" call-argnr="1" file="Labyrinthe.cc" line="259" col="31" call-argexpr="tmp" call-argvaluetype="7" call-argvalue="128"/><function-call call-id="Environnement.h:66:6" call-funcname="wall_texture" call-argnr="1" file="Labyrinthe.cc" line="292" col="29" call-argexpr="tmp" call-argvaluetype="7" call-argvalue="128"/><function-call call-id="Mover.h:11:15" call-funcname="init" call-argnr="1" file="Mover.h" line="22" col="13" my-id="Mover.h:19:2" my-argnr="4"/>
+<function-call call-id="Labyrinthe.h:20:2" call-funcname="Labyrinthe" call-argnr="1" file="Labyrinthe.cc" line="28" col="13" my-id="Environnement.h:43:24" my-argnr="1"/>
+  </FileInfo>
+  <FileInfo check="Class">
+<class name="Wall" file="Environnement.h" line="18" col="1" hash="9561384953214149693"/>
+<class name="Box" file="Environnement.h" line="24" col="1" hash="7938138908346818436"/>
+<class name="Labyrinthe" file="Labyrinthe.h" line="9" col="1" hash="16348655984875018814"/>
+<class name="Creature" file="Creature.h" line="15" col="1" hash="16203338071670940043"/>
+  </FileInfo>
+        <error id="uninitMemberVar" severity="warning" msg="Member variable &apos;Sound::error&apos; is not initialized in the constructor." verbose="Member variable &apos;Sound::error&apos; is not initialized in the constructor." cwe="398" file0="Labyrinthe.cc">
+            <location file="Sound.h" line="17" column="2"/>
+            <symbol>Sound::error</symbol>
+        </error>
+        <error id="noExplicitConstructor" severity="style" msg="Class &apos;Sound&apos; has a constructor with 1 argument that is not explicit." verbose="Class &apos;Sound&apos; has a constructor with 1 argument that is not explicit. Such constructors should in general be explicit for type safety reasons. Using the explicit keyword in the constructor means some mistakes when using the class can be avoided." cwe="398" file0="Labyrinthe.cc">
+            <location file="Sound.h" line="17" column="2"/>
+            <symbol>Sound</symbol>
+        </error>
+  <FileInfo check="ctu">
+<function-call call-id="Environnement.h:66:6" call-funcname="wall_texture" call-argnr="1" file="Labyrinthe.cc" line="259" col="31" call-argexpr="tmp" call-argvaluetype="7" call-argvalue="128"/><function-call call-id="Environnement.h:66:6" call-funcname="wall_texture" call-argnr="1" file="Labyrinthe.cc" line="292" col="29" call-argexpr="tmp" call-argvaluetype="7" call-argvalue="128"/><function-call call-id="Mover.h:11:15" call-funcname="init" call-argnr="1" file="Mover.h" line="22" col="13" my-id="Mover.h:19:2" my-argnr="4"/>
+<function-call call-id="Labyrinthe.h:20:2" call-funcname="Labyrinthe" call-argnr="1" file="Labyrinthe.cc" line="28" col="13" my-id="Environnement.h:43:24" my-argnr="1"/>
+  </FileInfo>
+  <FileInfo check="Class">
+<class name="Wall" file="Environnement.h" line="18" col="1" hash="9561384953214149693"/>
+<class name="Box" file="Environnement.h" line="24" col="1" hash="7938138908346818436"/>
+<class name="Labyrinthe" file="Labyrinthe.h" line="9" col="1" hash="16348655984875018814"/>
+<class name="Creature" file="Creature.h" line="15" col="1" hash="16203338071670940043"/>
+<class name="Sound" file="Sound.h" line="13" col="1" hash="11550400832661064647"/>
+  </FileInfo>
+  <FileInfo check="Null pointer">
+    <unsafe-usage my-id="Sound.h:17:2" my-argnr="1" my-argname="name" file="Sound.h" line="17" col="54" value="0"/>
+  </FileInfo>
+  <FileInfo check="ctu">
+<function-call call-id="Environnement.h:66:6" call-funcname="wall_texture" call-argnr="1" file="Labyrinthe.cc" line="259" col="31" call-argexpr="tmp" call-argvaluetype="7" call-argvalue="128"/><function-call call-id="Environnement.h:66:6" call-funcname="wall_texture" call-argnr="1" file="Labyrinthe.cc" line="292" col="29" call-argexpr="tmp" call-argvaluetype="7" call-argvalue="128"/><function-call call-id="Mover.h:11:15" call-funcname="init" call-argnr="1" file="Mover.h" line="22" col="13" my-id="Mover.h:19:2" my-argnr="4"/>
+<function-call call-id="Labyrinthe.h:20:2" call-funcname="Labyrinthe" call-argnr="1" file="Labyrinthe.cc" line="28" col="13" my-id="Environnement.h:43:24" my-argnr="1"/>
+  </FileInfo>
+  <FileInfo check="Class">
+<class name="Wall" file="Environnement.h" line="18" col="1" hash="9561384953214149693"/>
+<class name="Box" file="Environnement.h" line="24" col="1" hash="7938138908346818436"/>
+<class name="Labyrinthe" file="Labyrinthe.h" line="9" col="1" hash="16348655984875018814"/>
+<class name="Creature" file="Creature.h" line="15" col="1" hash="16203338071670940043"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="init" lineNumber="26"/>
+    <functiondecl functionName="extractWalls" lineNumber="218"/>
+    <functiondecl functionName="extractBox" lineNumber="277"/>
+    <functiondecl functionName="extractTresor" lineNumber="301"/>
+    <functiondecl functionName="extractPict" lineNumber="318"/>
+    <functiondecl functionName="changePosition" lineNumber="346"/>
+    <functiondecl functionName="init" lineNumber="26"/>
+    <functiondecl functionName="extractWalls" lineNumber="218"/>
+    <functiondecl functionName="extractBox" lineNumber="277"/>
+    <functiondecl functionName="extractTresor" lineNumber="301"/>
+    <functiondecl functionName="extractPict" lineNumber="318"/>
+    <functiondecl functionName="changePosition" lineNumber="346"/>
+    <functiondecl functionName="init" lineNumber="26"/>
+    <functiondecl functionName="extractWalls" lineNumber="218"/>
+    <functiondecl functionName="extractBox" lineNumber="277"/>
+    <functiondecl functionName="extractTresor" lineNumber="301"/>
+    <functiondecl functionName="extractPict" lineNumber="318"/>
+    <functiondecl functionName="changePosition" lineNumber="346"/>
+    <functioncall functionName="ATTAQUE"/>
+    <functioncall functionName="Chasseur"/>
+    <functioncall functionName="Creature"/>
+    <functioncall functionName="EXIT_FAILURE"/>
+    <functioncall functionName="FB_EXPLODE"/>
+    <functioncall functionName="FB_MOVE"/>
+    <functioncall functionName="FB_NONE"/>
+    <functioncall functionName="Gardien"/>
+    <functioncall functionName="Labyrinthe"/>
+    <functioncall functionName="Mover"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="PATROUILLE"/>
+    <functioncall functionName="Wall"/>
+    <functioncall functionName="_angle"/>
+    <functioncall functionName="_fb"/>
+    <functioncall functionName="_height"/>
+    <functioncall functionName="_l"/>
+    <functioncall functionName="_nboxes"/>
+    <functioncall functionName="_nguards"/>
+    <functioncall functionName="_npicts"/>
+    <functioncall functionName="_nwall"/>
+    <functioncall functionName="_walls"/>
+    <functioncall functionName="_width"/>
+    <functioncall functionName="_x"/>
+    <functioncall functionName="_y"/>
+    <functioncall functionName="accumulator"/>
+    <functioncall functionName="begin"/>
+    <functioncall functionName="box"/>
+    <functioncall functionName="c_str"/>
+    <functioncall functionName="char"/>
+    <functioncall functionName="charArray"/>
+    <functioncall functionName="close"/>
+    <functioncall functionName="cmd"/>
+    <functioncall functionName="const"/>
+    <functioncall functionName="continue"/>
+    <functioncall functionName="copy"/>
+    <functioncall functionName="count"/>
+    <functioncall functionName="current"/>
+    <functioncall functionName="current_line"/>
+    <functioncall functionName="current_x"/>
+    <functioncall functionName="current_y"/>
+    <functioncall functionName="dx"/>
+    <functioncall functionName="dy"/>
+    <functioncall functionName="empty"/>
+    <functioncall functionName="end"/>
+    <functioncall functionName="endWall"/>
+    <functioncall functionName="exit"/>
+    <functioncall functionName="extractBox"/>
+    <functioncall functionName="extractPict"/>
+    <functioncall functionName="extractTresor"/>
+    <functioncall functionName="extractWalls"/>
+    <functioncall functionName="file"/>
+    <functioncall functionName="filename"/>
+    <functioncall functionName="find"/>
+    <functioncall functionName="first"/>
+    <functioncall functionName="float"/>
+    <functioncall functionName="for"/>
+    <functioncall functionName="getline"/>
+    <functioncall functionName="hp"/>
+    <functioncall functionName="i"/>
+    <functioncall functionName="if"/>
+    <functioncall functionName="init"/>
+    <functioncall functionName="int"/>
+    <functioncall functionName="is_open"/>
+    <functioncall functionName="j"/>
+    <functioncall functionName="l"/>
+    <functioncall functionName="length"/>
+    <functioncall functionName="line"/>
+    <functioncall functionName="long"/>
+    <functioncall functionName="max"/>
+    <functioncall functionName="model"/>
+    <functioncall functionName="modele"/>
+    <functioncall functionName="move_aux"/>
+    <functioncall functionName="name"/>
+    <functioncall functionName="new_line"/>
+    <functioncall functionName="new_x"/>
+    <functioncall functionName="new_y"/>
+    <functioncall functionName="open"/>
+    <functioncall functionName="override"/>
+    <functioncall functionName="printf"/>
+    <functioncall functionName="push_back"/>
+    <functioncall functionName="second"/>
+    <functioncall functionName="size"/>
+    <functioncall functionName="sprintf"/>
+    <functioncall functionName="strcpy"/>
+    <functioncall functionName="system"/>
+    <functioncall functionName="texture_affiche"/>
+    <functioncall functionName="texture_dir"/>
+    <functioncall functionName="this"/>
+    <functioncall functionName="tmp"/>
+    <functioncall functionName="turn"/>
+    <functioncall functionName="void"/>
+    <functioncall functionName="wall"/>
+    <functioncall functionName="wall_texture"/>
+    <functioncall functionName="while"/>
+    <functioncall functionName="x"/>
+    <functioncall functionName="y"/>
+  </FileInfo>
+</analyzerinfo>

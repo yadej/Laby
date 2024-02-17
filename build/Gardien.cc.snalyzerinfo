@@ -1,0 +1,26 @@
+set_orig_size
+get_x
+get_y
+Environnement
+Mover call:[init] noreturn:[init]
+Mover
+right_click
+Labyrinthe
+width
+height
+data
+printMaze
+Creature
+Creature
+getHealthPoint
+isAlive
+getHit
+move call:[move_aux] noreturn:[move_aux]
+update
+Gardien
+update call:[angleGardien,cos,detectChasseur,fire,isAlive,move,rand,sin] noreturn:[detectChasseur,fire]
+move call:[data]
+fire call:[init,rand] noreturn:[init]
+process_fireball call:[data,get_x,get_y,isAlive,message,partie_terminee,pow,sqrt] noreturn:[partie_terminee]
+detectChasseur call:[abs,data,pow,sqrt]
+angleGardien call:[atan2]

@@ -3,11 +3,12 @@
 
 #include <stdio.h>
 #include "Mover.h"
+#include "Creature.h"
 #include "Sound.h"
 
 class Labyrinthe;
 
-class Chasseur : public Mover {
+class Chasseur : public Creature {
 private:
 	// accepte ou non un deplacement.
 	bool move_aux (double dx, double dy);
@@ -16,25 +17,20 @@ public:
 	static Sound*	_hunter_fire;	// bruit de l'arme du chasseur.
 	static Sound*	_hunter_hit;	// cri du chasseur touché.
 	static Sound*	_wall_hit;		// on a tapé un mur.
-
 	// constructeur.
-	Chasseur (Labyrinthe* l);
-	~Chasseur()
-	{
-		delete _fb;
-	};
+	Chasseur (int x, int y,Labyrinthe* l);
 	// ne bouger que dans une case vide (on 'glisse' le long des obstacles)
-	bool move (double dx, double dy) {
+	bool move (double dx, double dy) override {
 		return move_aux (dx, dy) || move_aux (dx, 0.0) || move_aux (0.0, dy);
 	}
 	// le chasseur ne pense pas!
-	void update (void) {};
+	void update (void) override {};
 	// fait bouger la boule de feu (ceci est une exemple, à vous de traiter les collisions spécifiques...)
-	bool process_fireball (float dx, float dy);
+	bool process_fireball (float dx, float dy) override;
 	// tire sur un ennemi.
-	void fire (int angle_vertical);
+	void fire (int angle_vertical) override;
 	// clic droit.
-	void right_click (bool shift, bool control);
+	void right_click (bool shift, bool control) override;
 };
 
 #endif

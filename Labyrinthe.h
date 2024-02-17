@@ -5,24 +5,47 @@
 #include <iostream>
 #include <ostream>
 
+
 class Labyrinthe : public Environnement {
 private:
 	int		_width;
 	int		_height;
 	char**	_data;
+	void extractWalls();
+	void extractBox();
+	void extractTresor();
+	void extractPict();
+	Wall makePict(int x, int y, char* tmp);
 
 public:
 	Labyrinthe (char*);
 	~Labyrinthe()
 	{
+		// Delete the data
 		for(int i=0;i<_width;++i)
 		{
-			delete _data[i]; 
+			delete[] _data[i]; 
 		}
+		delete [] _data;
+		// Delete the walls
+		delete[] _walls;
+
+		// Delete the pictures
+		delete[] _picts;
+
+		// Delete the boxes
+		delete[] _boxes;
+
+		// Delete the marks
+		delete[] _marks;
+
+		// Delete the guards and their associated Mover objects
+		
+		delete[] _guards;
 	};
-	int width () { return _width;}	// retourne la largeur du labyrinthe.
-	int height () { return _height;}	// retourne la longueur du labyrinthe.
-	char data (int i, int j)
+	int width () override { return _width;}	// retourne la largeur du labyrinthe.
+	int height () override { return _height;}	// retourne la longueur du labyrinthe.
+	char data (int i, int j) override
 	{
 		return _data [i][j];
 	}	// retourne la case (i, j)

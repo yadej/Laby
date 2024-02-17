@@ -41,7 +41,7 @@ ifeq '$(OS)' "Ubuntu"
 FLTK_VERSION = fltk-1.4-ubuntu
 CXX = g++
 LD = ld
-CXXFLAGS =		-Wall -DUBUNTU -I /usr/include/freetype2 -I /usr/X11/include $(OPT)
+CXXFLAGS =		-Wextra -Wall -DUBUNTU -I /usr/include/freetype2 -I /usr/X11/include $(OPT)
 
 LINKFLTK_IMG =	-L$(FLTK_VERSION) -lfltk_jpeg \
 				-lfltk_png -lfltk_z -lfltk_gl -lfltk -lGLU -lGL \
@@ -74,7 +74,7 @@ endif
 
 SRC	=	Labyrinthe.cc Chasseur.cc Gardien.cc FireBall.cc
 H	=	Labyrinthe.h Chasseur.h FireBall.h Sound.h Environnement.h \
-		Gardien.h Mover.h
+		Gardien.h Mover.h Creature.h Timer.h
 O	=	Labyrinthe.o Chasseur.o Gardien.o 
 
 ifeq '$(OS)' "Darwin"
@@ -97,11 +97,9 @@ ifeq '$(OS)' "Darwin"
 else
 	$(CXX) -no-pie -o $@ $(O) $(OPENGL_O) $(LINKFLTK_IMG)
 endif
-
 clean:
 	$(RM) labh labh.exe $(O)
 
-Labyrinthe.o:	Labyrinthe.h Environnement.h Chasseur.h Mover.h Gardien.h
-Chasseur.o:		Chasseur.cc Chasseur.h Mover.h Sound.h
-Gardien.o: Gardien.cc Gardien.h Mover.h Labyrinthe.h
-FireBall.o: FireBall.cc FireBall.cc Mover.h
+Labyrinthe.o: Labyrinthe.cc Labyrinthe.h Environnement.h Chasseur.h Mover.h  Gardien.h Creature.h
+Chasseur.o: Chasseur.cc Chasseur.h Mover.h Creature.h Sound.h Timer.h
+Gardien.o: Gardien.cc Gardien.h Mover.h Creature.h Labyrinthe.h Timer.h
