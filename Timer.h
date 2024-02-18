@@ -42,6 +42,13 @@ class Timer
 		}
 		return false;
 	}
+	bool cooldown_is_passed()
+	{
+		auto currentTime = std::chrono::steady_clock::now();
+		return currentTime - _last_shot_time >= _cooldown_duration;
+	}
+	// Reset the clock if needed
+	void reset(){_last_shot_time = std::chrono::steady_clock::now();}
 };
 
 #endif

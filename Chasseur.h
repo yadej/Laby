@@ -2,6 +2,7 @@
 #define CHASSEUR_H
 
 #include <stdio.h>
+#include "Environnement.h"
 #include "Mover.h"
 #include "Creature.h"
 #include "Sound.h"
@@ -26,10 +27,14 @@ public:
 	Chasseur (int x, int y,Labyrinthe* l);
 	// ne bouger que dans une case vide (on 'glisse' le long des obstacles)
 	bool move (double dx, double dy) override {
+		update();
 		return move_aux (dx, dy) || move_aux (dx, 0.0) || move_aux (0.0, dy);
 	}
 	// le chasseur ne pense pas!
-	void update (void) override {};
+	void update (void) override {
+		regen(); 
+		message("Health: %d/%d", _health_point, _max_hp);
+	};
 	// fait bouger la boule de feu (ceci est une exemple, à vous de traiter les collisions spécifiques...)
 	bool process_fireball (float dx, float dy) override;
 	// Shoot a fireball

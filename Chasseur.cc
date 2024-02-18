@@ -2,7 +2,6 @@
 #include "Creature.h"
 #include "Environnement.h"
 #include "Gardien.h"
-#include <algorithm>
 #include <cmath>
 
 // player health at the start of the game
@@ -17,6 +16,10 @@
 
 bool Chasseur::move_aux (double dx, double dy)
 {
+	if(_x + dx < 0 
+		|| _y + dy < 0 
+		|| _x + dx > _l->width() * Environnement::scale 
+		|| _y + dy > _l->height() * Environnement::scale )return false;
 	char tile =  _l -> data ((int)(_x + dx) / Environnement::scale,(int)((_y + dy) / Environnement::scale));
 	// Look for treasure if true finish the game
 	if( tile == 'T')
@@ -58,6 +61,8 @@ Chasseur::Chasseur (int x, int y,Labyrinthe* l) : Creature (x, y, MAX_HP_CHASSEU
 
 bool Chasseur::process_fireball (float dx, float dy)
 {
+
+	
 	// calculer la distance entre le chasseur et le lieu de l'explosion.
 	float	x = (_x - _fb -> get_x ()) / Environnement::scale;
 	float	y = (_y - _fb -> get_y ()) / Environnement::scale;
@@ -80,6 +85,7 @@ bool Chasseur::process_fireball (float dx, float dy)
 			if(!gardien->is_alive())continue;
 			// Damage the gardian
 			gardien->get_hit(20);
+			gardien->reset_timer();
 			gardien->_guard_hit->play();
 			// Action on the hit
 			if(gardien->is_alive())gardien->tomber();
@@ -88,13 +94,22 @@ bool Chasseur::process_fireball (float dx, float dy)
 				gardien->rester_au_sol();
 				gardien->_guard_die->play();
 			}
-			message("Touche %d", indexGuards);
+			message("Touche %d, Health left: %d", indexGuards, gardien->get_health_point());
 			return false;
 		}
 	}
+
+	// Look if the fireball is on bounds
+	float new_x = _fb->get_x() + dx;
+	float new_y = _fb->get_y() + dy;
+	if(new_x < 0 
+		|| new_y < 0 
+		|| new_x > _l->width() * Environnement::scale
+		|| new_y > _l->height() * Environnement::scale)return false;
+
 	// Empty space
-	if (EMPTY == _l -> data ((int)((_fb -> get_x () + dx) / Environnement::scale),
-							 (int)((_fb -> get_y () + dy) / Environnement::scale)))
+	if (EMPTY == _l -> data ((int)(new_x / Environnement::scale),
+							 (int)(new_y / Environnement::scale)))
 	{
 		// il y a la place.
 		return true;
@@ -121,7 +136,6 @@ void Chasseur::fire (int angle_vertical)
 	* (1. - (float)_health_point / MAX_HP_CHASSEUR);
 	// Compute the angle where we will shoot our bullet
 	int shot_angle = _angle + varying_degree;
-	std::cout << varying_degree << " " << shot_angle << "\n";
 	_fb -> init (/* position initiale de la boule */ _x, _y, 10.,
 				 /* angles de visée */ angle_vertical, shot_angle);
 }

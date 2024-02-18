@@ -57,6 +57,8 @@ void Gardien::update (void)
 			fire(0);
 		}
         }
+	// regen if not attacked
+	regen();
 }
 /*
  *  Move the gardian in the maze depending 
@@ -99,14 +101,23 @@ bool Gardien::process_fireball (float dx, float dy) {
 		std::pow(_fb->get_x()- chasseur->_x,2) +
 		std::pow(_fb->get_y()- chasseur->_y,2)
 	);
-	if(distance <= 5.0)
+	if(distance <= 10.0)
 	{
 		chasseur->get_hit(5);
+		chasseur->reset_timer();
 		message("Player Hit:  %d/%d", chasseur->_health_point,100 );
 		chasseur->_hunter_hit->play();
 		if(!chasseur->is_alive())partie_terminee(false);
 		return false;
 	}
+	// Look if the fireball is on bounds
+	float new_x = _fb->get_x() + dx;
+	float new_y = _fb->get_y() + dy;
+	if(new_x < 0 
+		|| new_y < 0 
+		|| new_x > _l->width() * Environnement::scale
+		|| new_y > _l->height() * Environnement::scale)return false;
+
 
 	if (EMPTY == _l -> data ((int)((_fb -> get_x () + dx) / Environnement::scale),
 							 (int)((_fb -> get_y () + dy) / Environnement::scale)))
